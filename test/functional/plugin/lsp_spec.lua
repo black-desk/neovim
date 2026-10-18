@@ -111,6 +111,16 @@ describe('LSP', function()
     os.remove(fake_lsp_logfile)
   end)
 
+  it('make_client_capabilities() advertises workspaceEdit.documentChanges', function()
+    eq(
+      true,
+      exec_lua([[
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        return capabilities.workspace.workspaceEdit.documentChanges
+      ]])
+    )
+  end)
+
   describe('server_name specified', function()
     before_each(function()
       -- Run an instance of nvim on the file which contains our "scripts".
